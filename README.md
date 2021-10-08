@@ -7,6 +7,7 @@
 ## Installation
 - install python3
 - pip install -r requirements.txt
+- install postgresql
 ### To resolve psycopg2 installation error
 - sudo apt install python3-dev libpq-dev
 - pip3 install psycopg2
