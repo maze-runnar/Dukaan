@@ -37,6 +37,7 @@ class Merchant(db.Model):
     username = db.Column(db.String(32))
     password_hash = db.Column(db.String(128))
     location = db.Column(db.String(300))
+    authy_user_id = db.Column(db.String(30))
     pincode = db.Column(db.String(15))
     personal_note = db.Column(db.String(2000))
     is_verified = db.Column(db.Boolean)

@@ -3,6 +3,9 @@ import logging as logger
 from flask import Flask, abort, request, jsonify, g, url_for, make_response
 from model.user import User, Merchant
 from app import db
+from authy.api import AuthyApiClient
+
+authy_api = AuthyApiClient('2M08EuvrYMMdyYIAjUaS85yaSqwJUArd')
 
 class UserDetail(Resource):
 
@@ -169,3 +172,62 @@ class MerchantDetail(Resource):
 
         logger.debug("Inisde the delete method of Task")   
         return {"message" : "user deleted"},200
+
+
+class VerifyMobile(Resource):
+
+    
+    def __init__(self):
+        """Parse arguments from json"""
+
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('mobile',
+                                 type=str,
+                                 default="",
+                                 location='json')
+
+    def post(self, merchantid):
+        args = self.parser.parse_args()
+        user = authy_api.users.create(
+                email='dubesundaram99@gmail.com',
+                phone=args["mobile"],
+                country_code=91)
+        if user.ok():
+            data = Merchant.query.get(merchantid)
+            data.authy_user_id = user.id
+            try:
+                db.session.commit()
+                sms = authy_api.users.request_sms(user.id)
+                if sms.ok():
+                    return user.id
+                else:
+                    return {"msg": "sms not sent"}
+            except:
+                return {"msg": "something went wrong"}
+            # user.id is the `authy_id` needed for future requests
+        else:
+            return user.errors()
+
+class VerifyToken(Resource):
+    def __init__(self):
+        """Parse arguments from json"""
+
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('otp',
+                                 type=str,
+                                 default="",
+                                 location='json')
+
+    def post(self, merchantid):
+        args = self.parser.parse_args()
+        data = Merchant.query.get(merchantid)
+        verification = authy_api.tokens.verify(data.authy_user_id, token=args["otp"])
+        if(verification.ok()):
+            data.is_verified = True
+            try:
+                db.session.commit()
+                return {"msg": "user verified"}
+            except:
+                return {"msg": "something went wrong"}
+        else:
+            return {"msg": "otp is wrong"}

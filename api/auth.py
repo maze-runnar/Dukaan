@@ -233,3 +233,4 @@ class MerchantLogin(Resource):
         logger.debug("Inisde the delete method of Task")
         return {"message" : "Inside delete method"},200
 
+
