@@ -1,3 +1,7 @@
+### Flow chart : 
+
+![DukaanFlow](https://user-images.githubusercontent.com/56407566/137620074-45ccfae0-3edb-44d9-afcf-ec40c34f509a.png)
+
 # Dukaan
 
 ### TODO: Integrate notification System API
