@@ -15,3 +15,9 @@
 ### To resolve psycopg2 installation error
 - sudo apt install python3-dev libpq-dev
 - pip3 install psycopg2
+
+
+## Payment Integration
+- Merchant can add there QR code if they want to simply.
+- `OR` merchant can provide the UPI id. (give buttons on UI to redirect on respective UPI app)
+- `OR` merchant has to register on our platform with his detail like bank account number and we will process their payment.
