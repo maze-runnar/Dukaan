@@ -4,7 +4,7 @@
 
 # Dukaan
 
-### TODO: Integrate notification System API
+### TODO: Integrate khatabook like API
 
 <hr>
 
