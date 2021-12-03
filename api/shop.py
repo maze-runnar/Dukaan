@@ -17,17 +17,7 @@ class NearShopList(Resource):
         self.parser.add_argument('userid',
                                  type=int,
                                  location='json')
-        self.parser.add_argument('is_available',
-                                 type=bool,
-                                 location='json')
-        self.parser.add_argument('merchant_id',
-                                 type=int,
-                                 location='json')
         
-        # self.parser.add_argument('favourites',
-        #                          type=str,
-        #                          location='json')
-    
     
 
     
@@ -45,7 +35,7 @@ class NearShopList(Resource):
             }
             merchants.append(x)
 
-        print(near_shops)
-
+        logger.debug("Merchants near me: ", merchants)
+        
         return {"data": merchants}
 

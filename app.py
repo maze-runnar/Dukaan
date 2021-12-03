@@ -5,12 +5,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 # from marshmallow_sqlalchemy import *
 # from flask_marshmallow import *
+from flask_cors import CORS
 
 
 logger.basicConfig(level="DEBUG")
 
 
 flaskAppInstance = Flask(__name__)
+
+CORS(flaskAppInstance)
 
 flaskAppInstance.config.from_object(Config)
 db = SQLAlchemy(flaskAppInstance)

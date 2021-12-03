@@ -27,7 +27,6 @@ class AuthSignup(Resource):
         'password_hash': fields.String
     }
 
-    @marshal_with(user_fields)
     def post(self):
         logger.debug("Inside the post method of Task")
         args = self.parser.parse_args()
@@ -44,7 +43,7 @@ class AuthSignup(Resource):
             else:
                 db.session.add(user)
                 db.session.commit()
-                return user
+                return {"message": "success"}
         except:
             return {"message": "signup failed"}, 403
 
