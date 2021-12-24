@@ -57,6 +57,7 @@ class UserDetail(Resource):
         # print("here is the response", make_response(jsonify(data)))
         return {
                     "data" : {
+                                "id": userid,
                                 "username":data.username,
                                 "location":data.location,
                                 "pincode":data.pincode,
@@ -70,14 +71,21 @@ class UserDetail(Resource):
         logger.debug("Inisde the put method of Task")
         args = self.parser.parse_args()
         # print("args coming ...",args)
+        print("updating user detail: ", args)
         data = User.query.get(userid)
-        data.location = args["location"]
-        data.pincode = args["pincode"]
-        data.bucket = args["bucket"]
-        data.personal_note = args["personal_note"]
-        data.mobile = args["mobile"]
+        if "location" in args and (args["location"] != None):
+            data.location = args["location"]
+        if "pincode" in args and (args["pincode"] != None):
+            print("coming in pincode args even if it's not")
+            data.pincode = args["pincode"]
+        if "bucket" in args and (args["bucket"] != None):
+            data.bucket = args["bucket"]
+        if "personal_note" in args and (args["personal_note"] != None):
+            data.personal_note = args["personal_note"]
+        if "mobile" in args and (args["mobile"] != None):
+            data.mobile = args["mobile"]
         db.session.commit()
-        return {"data": str(data)},200
+        return {"data": str("value updated successfully")},200
 
     def delete(sef, userid):
 

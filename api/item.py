@@ -88,3 +88,44 @@ class ItemDetail(Resource):
         logger.debug("Inisde the delete method of Task")   
         return {"message" : "user deleted"},200
 
+
+
+class ItemList(Resource):
+
+    
+    def __init__(self):
+        """Parse arguments from json"""
+
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('name',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('is_available',
+                                 type=bool,
+                                 location='json')
+        self.parser.add_argument('merchant_id',
+                                 type=int,
+                                 location='json')
+        
+        # self.parser.add_argument('favourites',
+        #                          type=str,
+        #                          location='json')
+    
+    
+
+    
+    def get(self, merchantid):
+        logger.debug("Inisde the get method of Task")
+        data = db.session.query(Item).filter_by(merchant_id=merchantid).all()
+        
+        items = []
+        for i in data:
+            x = {
+                    "name":i.name,
+                    "is_available":i.is_available,
+                    "merchant_id":i.merchant_id,
+                }
+    
+            items.append(x)
+
+        return {"data": items}
