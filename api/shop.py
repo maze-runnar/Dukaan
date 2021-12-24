@@ -25,7 +25,9 @@ class NearShopList(Resource):
         logger.debug("Inisde the get method of Near BY shops")
         user = User.query.get(userid)
         user_pincode = user.pincode
-        near_shops = Merchant.query.filter_by(pincode=user_pincode).all()
+        near_shops = []
+        if user_pincode != "" or user_pincode != None:
+            near_shops = Merchant.query.filter_by(pincode=user_pincode).all()
         merchants = []
         for i in near_shops:
             x = {
@@ -35,7 +37,7 @@ class NearShopList(Resource):
             }
             merchants.append(x)
 
-        logger.debug("Merchants near me: ", merchants)
+        # logger.debug("Merchants near me: ", merchants)
         
         return {"data": merchants}
 
