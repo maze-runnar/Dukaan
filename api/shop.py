@@ -145,7 +145,7 @@ class ShopDetail(Resource):
         
         return {
             "data": {
-                    "name":data.name, "home_delivery_available": data.home_delivery_available, "merchant_id": data.merchant_id, "created_at": data.created_at, "items": items,
+                    "id": data.id,"name":data.name, "home_delivery_available": data.home_delivery_available, "merchant_id": data.merchant_id, "created_at": data.created_at, "items": items,
                     "pincode": data.pincode, "mobile": data.mobile, "location": data.location, "opening_time": data.opening_time, "closing_time": data.closing_time, "description": data.description
                 }
 
@@ -157,8 +157,8 @@ class ShopDetail(Resource):
         # print("args coming ...",args)
         data = Shop.query.get(shopid)
         data.name = args["name"]
-        data.is_deleted = args["is_deleted"]
         data.description = args["description"]
+        data.pincode = args["pincode"]
         db.session.commit()
         return {"data": str(data)}, 200
 
@@ -214,6 +214,7 @@ class ShopList(Resource):
         shops = []
         for i in data:
             x = {
+                "id": i.id,
                 "name": i.name,
                 "description": i.description,
                 "pincode": i.pincode,
