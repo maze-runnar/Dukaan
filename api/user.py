@@ -142,13 +142,6 @@ class MerchantDetail(Resource):
         data = Merchant.query.get(merchantid)
         # res = jsonify(data)
         # print("here is the response", make_response(jsonify(data)))
-        print(data.items)
-        items = []
-        for i in data.items:
-            d = {}
-            d["name"] = i.name
-            d["is_available"] = i.is_available
-            items.append(d)
         return {
                     "data" : {
                                 "username":data.username,
@@ -157,7 +150,6 @@ class MerchantDetail(Resource):
                                 "personal_note":data.personal_note,
                                 "mobile":data.mobile,
                                 "is_verified":data.is_verified,
-                                "items":items
                             }
                 }
 

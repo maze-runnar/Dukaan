@@ -15,23 +15,34 @@ class ItemPost(Resource):
         self.parser.add_argument('is_available',
                                  type=bool,
                                  location='json')
-        self.parser.add_argument('merchant_id',
+        self.parser.add_argument('shop_id',
                                  type=int,
                                  location='json')
-    
-    
+        self.parser.add_argument('max_order_amount',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('min_order_amount',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('description',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('is_deleted',
+                                 type=bool,
+                                 location='json')
+        
 
     def post(self):
         logger.debug("Inside the post method of Task")
         args = self.parser.parse_args()
         print("args coming ...",args)
         # print(name)
-        item = Item(name=args["name"], is_available=args["is_available"], merchant_id=args["merchant_id"])
+        item = Item(name=args["name"], is_available=args["is_available"], shop_id=args["shop_id"],max_order_amount=args["max_order_amount"], min_order_amount=args["min_order_amount"], description=args["description"])
         # item.name = args["name"]
         # item.merchant_id = args["merchant_id"]
         db.session.add(item)
         db.session.commit()
-        return {"name":args["name"], "is_available":args["is_available"], "merchant_id":args["merchant_id"]}
+        return {"name":args["name"], "is_available":args["is_available"], "shop_id":args["shop_id"]}
 
 
 
@@ -43,6 +54,7 @@ class ItemDetail(Resource):
     def __init__(self):
         """Parse arguments from json"""
 
+
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('name',
                                  type=str,
@@ -50,9 +62,22 @@ class ItemDetail(Resource):
         self.parser.add_argument('is_available',
                                  type=bool,
                                  location='json')
-        self.parser.add_argument('merchant_id',
+        self.parser.add_argument('shop_id',
                                  type=int,
                                  location='json')
+        self.parser.add_argument('max_order_amount',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('min_order_amount',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('description',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('is_deleted',
+                                 type=bool,
+                                 location='json')
+        
         
         # self.parser.add_argument('favourites',
         #                          type=str,
@@ -70,7 +95,10 @@ class ItemDetail(Resource):
                     "data" : {
                                 "name":data.name,
                                 "is_available":data.is_available,
-                                "merchant_id":data.merchant_id
+                                "shop_id":data.shop_id,
+                                "description": data.description,
+                                "max_order_amount": data.max_order_amount,
+                                "min_order_amount": data.min_order_amount
                             }
                 }
 
@@ -103,27 +131,36 @@ class ItemList(Resource):
         self.parser.add_argument('is_available',
                                  type=bool,
                                  location='json')
-        self.parser.add_argument('merchant_id',
+        self.parser.add_argument('shop_id',
                                  type=int,
                                  location='json')
+        self.parser.add_argument('max_order_amount',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('min_order_amount',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('description',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('is_deleted',
+                                 type=bool,
+                                 location='json')
         
-        # self.parser.add_argument('favourites',
-        #                          type=str,
-        #                          location='json')
-    
     
 
     
-    def get(self, merchantid):
+    def get(self, shopid):
         logger.debug("Inisde the get method of Task")
-        data = db.session.query(Item).filter_by(merchant_id=merchantid).all()
+        data = db.session.query(Item).filter_by(shop_id=shopid).all()
         
         items = []
         for i in data:
             x = {
                     "name":i.name,
                     "is_available":i.is_available,
-                    "merchant_id":i.merchant_id,
+                    "shop_id":i.shop_id,
+                    "description": i.description
                 }
     
             items.append(x)
