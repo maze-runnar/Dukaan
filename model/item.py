@@ -13,11 +13,21 @@ class Item(db.Model):
     __tablename__ = 'items'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    is_available = db.Column(db.Boolean)
-    merchant_id = db.Column(db.Integer, db.ForeignKey('merchants.id'),nullable=False)
+    is_available = db.Column(db.Boolean, default=True)
+    shop_id = db.Column(db.Integer, db.ForeignKey('shops.id'),nullable=False)
+    max_order_amount = db.Column(db.String(20))
+    min_order_amount = db.Column(db.String(20))
+    imageUrl = db.Column(db.String(500))
+    description = db.Column(db.String(500))
+    is_deleted = db.Column(db.Boolean, default=False)
 
-    def __init__(self, name, is_available, merchant_id):
+
+
+    def __init__(self, name, is_available, shop_id, max_order_amount, min_order_amount, description):
         self.name = name
         self.is_available = is_available
-        self.merchant_id = merchant_id
+        self.shop_id = shop_id
+        self.max_order_amount = max_order_amount
+        self.min_order_amount = min_order_amount
+        self.description = description
         db.create_all()
