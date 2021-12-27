@@ -15,7 +15,7 @@ class Shop(db.Model):
     name = db.Column(db.String(100))
     created_at = db.Column(db.String) ##db.Column(db.DateTime(timezone=True), default=func.now())
     merchant_id = db.Column(db.Integer, db.ForeignKey('merchants.id'),nullable=False)
-    items = db.relationship('Item', backref='shop', lazy=True)
+    items = db.relationship('Item', backref='shop', lazy=True) ## this is one to many relationaship, here we access other details as shop.items, just pass shop_is as foreign key in item id, which will be hidden in frontend
     pincode = db.Column(db.String(15))
     mobile = db.Column(db.String(15))
     location = db.Column(db.String(300))

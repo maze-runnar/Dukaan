@@ -19,13 +19,16 @@ class ItemPost(Resource):
                                  type=int,
                                  location='json')
         self.parser.add_argument('max_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('min_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('description',
-                                 type=int,
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('category',
+                                 type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
                                  type=bool,
@@ -37,12 +40,12 @@ class ItemPost(Resource):
         args = self.parser.parse_args()
         print("args coming ...",args)
         # print(name)
-        item = Item(name=args["name"], is_available=args["is_available"], shop_id=args["shop_id"],max_order_amount=args["max_order_amount"], min_order_amount=args["min_order_amount"], description=args["description"])
+        item = Item(name=args["name"], is_available=args["is_available"], shop_id=args["shop_id"],max_order_amount=args["max_order_amount"], min_order_amount=args["min_order_amount"], description=args["description"], category=args['category'])
         # item.name = args["name"]
         # item.merchant_id = args["merchant_id"]
         db.session.add(item)
         db.session.commit()
-        return {"name":args["name"], "is_available":args["is_available"], "shop_id":args["shop_id"]}
+        return {"name":args["name"], "is_available":args["is_available"], "shop_id":args["shop_id"], "category": args["category"]}
 
 
 
@@ -66,23 +69,21 @@ class ItemDetail(Resource):
                                  type=int,
                                  location='json')
         self.parser.add_argument('max_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('min_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('description',
-                                 type=int,
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('category',
+                                 type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
                                  type=bool,
                                  location='json')
         
-        
-        # self.parser.add_argument('favourites',
-        #                          type=str,
-        #                          location='json')
-    
     
 
     
@@ -98,7 +99,8 @@ class ItemDetail(Resource):
                                 "shop_id":data.shop_id,
                                 "description": data.description,
                                 "max_order_amount": data.max_order_amount,
-                                "min_order_amount": data.min_order_amount
+                                "min_order_amount": data.min_order_amount,
+                                "category": data.category
                             }
                 }
 
@@ -135,19 +137,21 @@ class ItemList(Resource):
                                  type=int,
                                  location='json')
         self.parser.add_argument('max_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('min_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('description',
-                                 type=int,
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('category',
+                                 type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
                                  type=bool,
                                  location='json')
         
-    
 
     
     def get(self, shopid):
@@ -160,7 +164,8 @@ class ItemList(Resource):
                     "name":i.name,
                     "is_available":i.is_available,
                     "shop_id":i.shop_id,
-                    "description": i.description
+                    "description": i.description,
+                    "category": i.category
                 }
     
             items.append(x)
