@@ -20,14 +20,15 @@ class Item(db.Model):
     imageUrl = db.Column(db.String(500))
     description = db.Column(db.String(500))
     is_deleted = db.Column(db.Boolean, default=False)
+    category = db.Column(db.String(50), default="other")
 
 
-
-    def __init__(self, name, is_available, shop_id, max_order_amount, min_order_amount, description):
+    def __init__(self, name, is_available, shop_id, max_order_amount, min_order_amount, description, category):
         self.name = name
         self.is_available = is_available
         self.shop_id = shop_id
         self.max_order_amount = max_order_amount
         self.min_order_amount = min_order_amount
         self.description = description
+        self.category = category
         db.create_all()
