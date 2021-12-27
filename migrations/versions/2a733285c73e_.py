@@ -18,6 +18,7 @@ depends_on = None
 
 def upgrade():
     op.add_column('items', sa.Column('category', sa.String()))
+    op.execute("UPDATE items SET \"category\" = \'other\' WHERE TRUE")
 
 
 def downgrade():
