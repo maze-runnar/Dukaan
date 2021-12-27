@@ -28,8 +28,12 @@ class NearShopList(Resource):
         for i in near_shops:
             x = {
                 "id": i.id,
+                "name":i.name,
                 "location": i.location,
-                "mobile": i.mobile
+                "mobile": i.mobile,
+                "opening_time":i.opening_time,
+                "close_time":i.closing_time
+                
             }
             shops.append(x)
 
@@ -221,7 +225,7 @@ class ShopList(Resource): ## showing shop list for a merchant that's why will ta
                 "mobile": i.mobile,
                 "opening_time": i.opening_time,
                 "closing_time": i.closing_time
-            } ## currently these infos are getting to frontend, if more info you need just return here like
+            }
 
             shops.append(x)
 
