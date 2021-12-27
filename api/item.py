@@ -19,13 +19,13 @@ class ItemPost(Resource):
                                  type=int,
                                  location='json')
         self.parser.add_argument('max_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('min_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('description',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
                                  type=bool,
@@ -66,23 +66,18 @@ class ItemDetail(Resource):
                                  type=int,
                                  location='json')
         self.parser.add_argument('max_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('min_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('description',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
                                  type=bool,
                                  location='json')
         
-        
-        # self.parser.add_argument('favourites',
-        #                          type=str,
-        #                          location='json')
-    
     
 
     
@@ -135,19 +130,18 @@ class ItemList(Resource):
                                  type=int,
                                  location='json')
         self.parser.add_argument('max_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('min_order_amount',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('description',
-                                 type=int,
+                                 type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
                                  type=bool,
                                  location='json')
         
-    
 
     
     def get(self, shopid):

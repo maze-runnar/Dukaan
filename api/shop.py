@@ -93,7 +93,7 @@ class ShopPost(Resource):
                 }
 
 
-class ShopDetail(Resource):
+class ShopDetail(Resource): #this is shop detail API
 
     def __init__(self):
         """Parse arguments from json"""
@@ -130,7 +130,7 @@ class ShopDetail(Resource):
         self.parser.add_argument('opening_time',
                                  type=str,
                                  location='json')
-    def get(self, shopid):
+    def get(self, shopid): ## in this we fetch all detail of detail function, passing shopid in API
         logger.debug("Inisde the get method of Task")
         data = Shop.query.filter_by(id=shopid).first()
         # res = jsonify(data)
@@ -149,9 +149,9 @@ class ShopDetail(Resource):
                     "pincode": data.pincode, "mobile": data.mobile, "location": data.location, "opening_time": data.opening_time, "closing_time": data.closing_time, "description": data.description
                 }
 
-        }
+        } ## all the details we are fetching in /api/v1/shop/id API , so we will access in frontend using these fields as home_delivery_available, merchant_id etc..
 
-    def put(self, shopid):
+    def put(self, shopid): ## to update the details of any specific shop, this function is responsible, you will call the same API, just update method in frontend method = "PUT"
         logger.debug("Inisde the put method of Task")
         args = self.parser.parse_args()
         # print("args coming ...",args)
@@ -170,7 +170,7 @@ class ShopDetail(Resource):
         return {"message": "user deleted"}, 200
 
 
-class ShopList(Resource):
+class ShopList(Resource): ## showing shop list for a merchant that's why will take merchantid in API
 
     def __init__(self):
         """Parse arguments from json"""
@@ -218,9 +218,11 @@ class ShopList(Resource):
                 "name": i.name,
                 "description": i.description,
                 "pincode": i.pincode,
-                "mobile": i.mobile
-            }
+                "mobile": i.mobile,
+                "opening_time": i.opening_time,
+                "closing_time": i.closing_time
+            } ## currently these infos are getting to frontend, if more info you need just return here like
 
             shops.append(x)
 
-        return {"data": shops}
+        return {"data": shops}  ## list of shops, from here shops is array of dictionary
