@@ -28,8 +28,12 @@ class NearShopList(Resource):
         for i in near_shops:
             x = {
                 "id": i.id,
+                "name":i.name,
                 "location": i.location,
-                "mobile": i.mobile
+                "mobile": i.mobile,
+                "opening_time":i.opening_time,
+                "close_time":i.closing_time
+                
             }
             shops.append(x)
 
@@ -214,10 +218,13 @@ class ShopList(Resource):
         shops = []
         for i in data:
             x = {
+                "id":i.id,
                 "name": i.name,
                 "description": i.description,
                 "pincode": i.pincode,
-                "mobile": i.mobile
+                "mobile": i.mobile,
+                "opening_time":i.opening_time,
+                "close_time":i.closing_time
             }
 
             shops.append(x)
