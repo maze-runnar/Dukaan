@@ -41,8 +41,6 @@ class ItemPost(Resource):
         print("args coming ...",args)
         # print(name)
         item = Item(name=args["name"], is_available=args["is_available"], shop_id=args["shop_id"],max_order_amount=args["max_order_amount"], min_order_amount=args["min_order_amount"], description=args["description"], category=args['category'])
-        # item.name = args["name"]
-        # item.merchant_id = args["merchant_id"]
         db.session.add(item)
         db.session.commit()
         return {"name":args["name"], "is_available":args["is_available"], "shop_id":args["shop_id"], "category": args["category"]}

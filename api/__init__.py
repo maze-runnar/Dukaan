@@ -6,6 +6,7 @@ from .user import UserDetail, MerchantDetail, VerifyMobile, VerifyToken
 from .item import ItemDetail, ItemPost, ItemList
 from .notification import NotificationPost, NotificationDetail
 from .shop import NearShopList, ShopPost, ShopList, ShopDetail
+from .upload import ImageUpload
 
 restServerInstance = Api(flaskAppInstance)
 
@@ -26,4 +27,5 @@ restServerInstance.add_resource(NearShopList, "/api/v1/shop/nearby/<userid>")
 restServerInstance.add_resource(ShopPost, "/api/v1/merchant/shop/new")
 restServerInstance.add_resource(ShopDetail, "/api/v1/shop/<shopid>")
 restServerInstance.add_resource(ShopList, "/api/v1/merchant/shops/<merchantid>")
+restServerInstance.add_resource(ImageUpload, "/api/v1/upload/image")
 
