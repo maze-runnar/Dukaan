@@ -7,13 +7,13 @@ from flask_httpauth import HTTPBasicAuth
 import jwt
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, String, Integer
-
+from datetime import datetime
 
 class Shop(db.Model):
     __tablename__ = 'shops'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    created_at = db.Column(db.String) ##db.Column(db.DateTime(timezone=True), default=func.now())
+    created_at = db.Column(db.String, default=datetime.now()) ##db.Column(db.DateTime(timezone=True), default=func.now())
     merchant_id = db.Column(db.Integer, db.ForeignKey('merchants.id'),nullable=False)
     items = db.relationship('Item', backref='shop', lazy=True) ## this is one to many relationaship, here we access other details as shop.items, just pass shop_is as foreign key in item id, which will be hidden in frontend
     pincode = db.Column(db.String(15))

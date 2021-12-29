@@ -7,7 +7,7 @@ from flask_httpauth import HTTPBasicAuth
 import jwt
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, String, Integer
-
+from datetime import datetime
 
 class Notification(db.Model):
     __tablename__ = 'notifications'
@@ -16,7 +16,7 @@ class Notification(db.Model):
     is_read = db.Column(db.Boolean)
     merchant_id = db.Column(db.Integer, db.ForeignKey('merchants.id'),nullable=False)
     uesr_id = db.Column(db.Integer, db.ForeignKey('users.id'),nullable=False)
-    created_at = db.Column(db.String) ##db.Column(db.DateTime(timezone=True), default=func.now())
+    created_at = db.Column(db.String, default=datetime.now()) ##db.Column(db.DateTime(timezone=True), default=func.now())
 
     def __init__(self, msg, is_read, created_at, merchant_id, user_id):
         self.msg = msg

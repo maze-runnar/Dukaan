@@ -7,6 +7,7 @@ from .item import ItemDetail, ItemPost, ItemList
 from .notification import NotificationPost, NotificationDetail
 from .shop import NearShopList, ShopPost, ShopList, ShopDetail
 from .upload import ImageUpload
+from .khatabook import KhataPost, KhataList, KhataDetail
 
 restServerInstance = Api(flaskAppInstance)
 
@@ -28,4 +29,9 @@ restServerInstance.add_resource(ShopPost, "/api/v1/merchant/shop/new")
 restServerInstance.add_resource(ShopDetail, "/api/v1/shop/<shopid>")
 restServerInstance.add_resource(ShopList, "/api/v1/merchant/shops/<merchantid>")
 restServerInstance.add_resource(ImageUpload, "/api/v1/upload/image")
+restServerInstance.add_resource(KhataPost, "/api/v1/khata/new")
+restServerInstance.add_resource(KhataList, "/api/v1/shop/khata/<shopid>")
+restServerInstance.add_resource(KhataDetail, "/api/v1/khata/<shopid>")
+
+
 
