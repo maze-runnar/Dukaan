@@ -3,13 +3,10 @@ import os
 import time
 from flask import Flask, abort, request, jsonify, g, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_httpauth import HTTPBasicAuth
-import jwt
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import Column, String, Integer
 from model.item import Item
 
-auth = HTTPBasicAuth()
 
 
 class User(db.Model):
