@@ -2,7 +2,7 @@ from flask_restful import Api
 from app import flaskAppInstance
 from .auth import AuthSignup, AuthLogin, MerchantSignup, MerchantLogin
 # from .merchant_auth import MerchantSignup, MerchantLogin
-from .user import UserDetail, MerchantDetail, VerifyMobile, VerifyToken
+from .user import UserDetail, MerchantDetail, VerifyMobile, VerifyToken,UserNameFilterDetail
 from .item import ItemDetail, ItemPost, ItemList
 from .notification import NotificationPost, NotificationDetail
 from .shop import NearShopList, ShopPost, ShopList, ShopDetail
@@ -31,7 +31,9 @@ restServerInstance.add_resource(ShopList, "/api/v1/merchant/shops/<merchantid>")
 restServerInstance.add_resource(ImageUpload, "/api/v1/upload/image")
 restServerInstance.add_resource(KhataPost, "/api/v1/khata/new")
 restServerInstance.add_resource(KhataList, "/api/v1/shop/khata/<shopid>")
-restServerInstance.add_resource(KhataDetail, "/api/v1/khata/<shopid>")
+restServerInstance.add_resource(KhataDetail, "/api/v1/khata/<khataid>")
+restServerInstance.add_resource(UserNameFilterDetail, "/api/v1/userdetail/filter")
+
 
 
 

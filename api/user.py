@@ -7,6 +7,24 @@ from authy.api import AuthyApiClient
 
 authy_api = AuthyApiClient('2M08EuvrYMMdyYIAjUaS85yaSqwJUArd')
 
+class UserNameFilterDetail(Resource): ## to be used if merchant enters initials of username and want to select user in drop down..
+     
+    def get(self):
+        usernameinput= request.args.get('username')
+        data = User.query.filter(User.username.ilike(f'%{usernameinput}%')).limit(10).all()
+        users = []
+        for i in data:
+            users.append({
+                "id": i.id,
+                "username": i.username,
+                "mobile": i.mobile
+            })
+        return {
+            "data": users
+        }        
+
+
+
 class UserDetail(Resource):
 
     
@@ -26,7 +44,11 @@ class UserDetail(Resource):
         self.parser.add_argument('personal_note',
                                  type=str,
                                  location='json')
+        
         self.parser.add_argument('mobile',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('username',
                                  type=str,
                                  location='json')
         # self.parser.add_argument('favourites',

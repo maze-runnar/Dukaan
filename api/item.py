@@ -30,6 +30,9 @@ class ItemPost(Resource):
         self.parser.add_argument('category',
                                  type=str,
                                  location='json')
+        self.parser.add_argument('imageUrl',
+                                 type=str,
+                                 location='json')
         self.parser.add_argument('is_deleted',
                                  type=bool,
                                  location='json')
@@ -40,7 +43,7 @@ class ItemPost(Resource):
         args = self.parser.parse_args()
         print("args coming ...",args)
         # print(name)
-        item = Item(name=args["name"], is_available=args["is_available"], shop_id=args["shop_id"],max_order_amount=args["max_order_amount"], min_order_amount=args["min_order_amount"], description=args["description"], category=args['category'])
+        item = Item(name=args["name"], is_available=args["is_available"], shop_id=args["shop_id"],max_order_amount=args["max_order_amount"], min_order_amount=args["min_order_amount"], description=args["description"], category=args['category'], imageUrl=args["imageUrl"])
         db.session.add(item)
         db.session.commit()
         return {"name":args["name"], "is_available":args["is_available"], "shop_id":args["shop_id"], "category": args["category"]}
@@ -76,6 +79,9 @@ class ItemDetail(Resource):
                                  type=str,
                                  location='json')
         self.parser.add_argument('category',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('imageUrl',
                                  type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
@@ -144,6 +150,9 @@ class ItemList(Resource):
                                  type=str,
                                  location='json')
         self.parser.add_argument('category',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('imageUrl',
                                  type=str,
                                  location='json')
         self.parser.add_argument('is_deleted',
