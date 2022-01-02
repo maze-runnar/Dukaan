@@ -94,18 +94,18 @@ class KhataDetail(Resource):
     
     def get(self, khataid):
         logger.debug("Inisde the get method of Task")
-        data = khata.query.get(khataid)
+        data = Khata.query.get(khataid)
         # res = jsonify(data)
         # print("here is the response", make_response(jsonify(data)))
         return {
-                    "data" : {"title":args["title"],"payer_name":args["payer_name"],"mark_as_paid":args["mark_as_paid"], "shop_id":args["shop_id"], "merchant_id": args["merchant_id"], "total_money": args["total_money"], "paid_money": args["paid_money"], "created_at": args["created_at"]}
+                    "data" : {"title": data.title,"payer_name": data.payer_name,"mark_as_paid": data.mark_as_paid, "shop_id": data.shop_id, "merchant_id": data.merchant_id, "total_money": data.total_money, "paid_money": data.paid_money, "created_at": data.created_at}
                 }
 
     def put(self, khataid):
         logger.debug("Inisde the put method of Task")
         args = self.parser.parse_args()
         # print("args coming ...",args)
-        data = khata.query.get(khataid)
+        data = Khata.query.get(khataid)
         data.mark_as_paid = args["mark_as_paid"]
         data.total_money = args["total_money"]
         data.paid_money = args["paid_money"]
