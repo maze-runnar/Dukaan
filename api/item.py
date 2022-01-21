@@ -178,3 +178,62 @@ class ItemList(Resource):
             items.append(x)
 
         return {"data": items}
+
+class ItemListByCategory(Resource):
+    def __init__(self):
+        """Parse arguments from json"""
+
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('name',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('is_available',
+                                 type=bool,
+                                 location='json')
+        self.parser.add_argument('shop_id',
+                                 type=int,
+                                 location='json')
+        self.parser.add_argument('max_order_amount',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('min_order_amount',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('description',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('category',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('imageUrl',
+                                 type=str,
+                                 location='json')
+        self.parser.add_argument('is_deleted',
+                                 type=bool,
+                                 location='json')
+        
+
+    
+    def get(self):
+        category = request.args.get('category')
+        limit = 50
+        if request.args.get('limit'):
+            limit = request.args.get('limit')
+
+
+        data = Item.query.filter(Item.category.ilike(f'%{category}%')).limit(limit).all()
+        items = []
+        for i in data:
+            items.append({
+                "id": i.id,
+                "name":data.name,
+                "is_available":data.is_available,
+                "shop_id":data.shop_id,
+                "description": data.description,
+                "max_order_amount": data.max_order_amount,
+                "min_order_amount": data.min_order_amount,
+                "category": data.category
+            })
+        return {
+            "data": items
+        }   
