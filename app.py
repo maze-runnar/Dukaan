@@ -23,7 +23,7 @@ from flask_restful import Api
 from api.auth import AuthSignup, AuthLogin, MerchantSignup, MerchantLogin
 # from .merchant_auth import MerchantSignup, MerchantLogin
 from api.user import UserDetail, MerchantDetail, VerifyMobile, VerifyToken,UserNameFilterDetail
-from api.item import ItemDetail, ItemPost, ItemList, ItemListByCategory
+from api.item import ItemDetail, ItemPost, ItemList, ItemListByCategory, ItemListByName
 from api.notification import NotificationPost, NotificationDetail
 from api.shop import NearShopList, ShopPost, ShopList, ShopDetail
 from api.upload import ImageUpload
@@ -54,6 +54,8 @@ restServerInstance.add_resource(KhataList, "/api/v1/shop/khata/<shopid>")
 restServerInstance.add_resource(KhataDetail, "/api/v1/khata/<khataid>")
 restServerInstance.add_resource(UserNameFilterDetail, "/api/v1/userdetail/filter")
 restServerInstance.add_resource(ItemListByCategory, "/api/v1/item/category/filter") ##filter by category use like "/api/v1/item/category/filter?category=all&limit=50"
+restServerInstance.add_resource(ItemListByName, "/api/v1/item/name/filter") ##filter by category use like "/api/v1/item/name/filter?itemname=all&limit=50"
+
 # ma = Marshmallow(flaskAppInstance)
 db.create_all()
 
