@@ -51,9 +51,9 @@ class UserDetail(Resource):
         self.parser.add_argument('username',
                                  type=str,
                                  location='json')
-        # self.parser.add_argument('favourites',
-        #                          type=str,
-        #                          location='json')
+        self.parser.add_argument('name',
+                                 type=str,
+                                 location='json')
     
     user_fields = {
         'id': fields.Integer,
@@ -85,7 +85,8 @@ class UserDetail(Resource):
                                 "pincode":data.pincode,
                                 "bucket": data.bucket,
                                 "personal_note":data.personal_note,
-                                "mobile":data.mobile
+                                "mobile":data.mobile,
+                                "name":data.name
                             }
                 }
 
@@ -106,6 +107,7 @@ class UserDetail(Resource):
             data.personal_note = args["personal_note"]
         if "mobile" in args and (args["mobile"] != None):
             data.mobile = args["mobile"]
+        data.name = args["name"]
         db.session.commit()
         return {"data": str("value updated successfully")},200
 
