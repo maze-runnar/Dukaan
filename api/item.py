@@ -201,13 +201,13 @@ class ItemListByCategory(Resource):
         for i in data:
             items.append({
                 "id": i.id,
-                "name":data.name,
-                "is_available":data.is_available,
-                "shop_id":data.shop_id,
-                "description": data.description,
-                "max_order_amount": data.max_order_amount,
-                "min_order_amount": data.min_order_amount,
-                "category": data.category
+                "name":i.name,
+                "is_available":i.is_available,
+                "shop_id":i.shop_id,
+                "description": i.description,
+                "max_order_amount": i.max_order_amount,
+                "min_order_amount": i.min_order_amount,
+                "category": i.category
             })
         return {
             "data": items
